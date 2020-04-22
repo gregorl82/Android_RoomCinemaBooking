@@ -1,11 +1,8 @@
 package com.example.android.roomcinemabooking.db
 
-import androidx.room.Dao
-import androidx.room.Insert
+import androidx.room.*
 import androidx.room.OnConflictStrategy.IGNORE
 import androidx.room.OnConflictStrategy.REPLACE
-import androidx.room.Query
-import androidx.room.Update
 import com.example.android.roomcinemabooking.model.Customer
 
 @Dao
@@ -22,5 +19,8 @@ interface CustomerDao {
 
     @Update(onConflict = REPLACE)
     fun updateCustomer(customer: Customer)
+
+    @Delete
+    fun deleteCustomer(customer: Customer)
 
 }

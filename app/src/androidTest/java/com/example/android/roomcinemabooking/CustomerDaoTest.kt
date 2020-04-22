@@ -54,6 +54,19 @@ class CustomerDaoTest {
     }
 
     @Test
+    fun testInsertCustomer() {
+        val previousNumberOfCustomers = customerDao.findAllCustomers().size
+
+        val newCustomer = Customer(null, "Jane Doe", 2500)
+        customerDao.insertCustomer(newCustomer)
+
+        val numberOfCustomers = customerDao.findAllCustomers().size
+        val numberOfNewCustomers = numberOfCustomers - previousNumberOfCustomers
+
+        Assert.assertEquals(1, numberOfNewCustomers)
+    }
+
+    @Test
     fun testUpdateCustomer() {
         val savedCustomer = customerDao.findCustomerById(1)
         savedCustomer.funds = 1500
@@ -62,6 +75,22 @@ class CustomerDaoTest {
         val updatedCustomer = customerDao.findCustomerById(1)
         Assert.assertEquals("John Smith", updatedCustomer.name)
         Assert.assertEquals(1500, updatedCustomer.funds)
+    }
+
+    @Test
+    fun testDeleteCustomer() {
+        val previousNumberOfCustomers = customerDao.findAllCustomers().size
+
+        val customerToDelete = customerDao.findCustomerById(1)
+        customerDao.deleteCustomer(customerToDelete)
+
+        val numberOfCustomers = customerDao.findAllCustomers().size
+        val numberOfDeletedCustomers = previousNumberOfCustomers - numberOfCustomers
+
+        val deletedCustomerRef = customerDao.findCustomerById(1)
+
+        Assert.assertEquals(1, numberOfDeletedCustomers)
+        Assert.assertNull(deletedCustomerRef)
     }
 
     @After
