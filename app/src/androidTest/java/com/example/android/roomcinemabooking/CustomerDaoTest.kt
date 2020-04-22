@@ -45,6 +45,25 @@ class CustomerDaoTest {
         Assert.assertEquals(1, numberOfCustomers)
     }
 
+    @Test
+    fun testFindById() {
+        val savedCustomer = customerDao.findCustomerById(1)
+        Assert.assertEquals("John Smith", savedCustomer.name)
+        Assert.assertEquals(1000, savedCustomer.funds)
+        Assert.assertNotNull(savedCustomer.id)
+    }
+
+    @Test
+    fun testUpdateCustomer() {
+        val savedCustomer = customerDao.findCustomerById(1)
+        savedCustomer.funds = 1500
+        customerDao.updateCustomer(savedCustomer)
+
+        val updatedCustomer = customerDao.findCustomerById(1)
+        Assert.assertEquals("John Smith", updatedCustomer.name)
+        Assert.assertEquals(1500, updatedCustomer.funds)
+    }
+
     @After
     fun tearDown() {
         database.close()
