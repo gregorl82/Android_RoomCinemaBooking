@@ -15,7 +15,7 @@ interface CustomerDao {
     fun findCustomerById(id: Long): Customer
 
     @Insert(onConflict = IGNORE)
-    fun insertCustomer(customer: Customer)
+    fun insertCustomer(customer: Customer): Long
 
     @Update(onConflict = REPLACE)
     fun updateCustomer(customer: Customer)
