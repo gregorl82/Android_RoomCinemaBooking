@@ -53,6 +53,18 @@ class FilmDaoTest {
         Assert.assertNotNull(savedFilm.id)
     }
 
+    @Test
+    fun testUpdateFilm() {
+        val savedFilm = filmDao.findFilmById(1)
+
+        savedFilm.price = 750
+        filmDao.updateFilm(savedFilm)
+
+        val updatedFilm = filmDao.findFilmById(1)
+        Assert.assertEquals("Shape Of Water", updatedFilm.title)
+        Assert.assertEquals(750, updatedFilm.price)
+    }
+
     @After
     fun tearDown() {
         database.close()
