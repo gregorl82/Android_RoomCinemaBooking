@@ -7,6 +7,8 @@ import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.android.roomcinemabooking.db.CinemaBookingDatabase
+import com.example.android.roomcinemabooking.db.FilmDao
+import com.example.android.roomcinemabooking.model.Film
 import org.junit.*
 import org.junit.rules.TestRule
 import org.junit.runner.RunWith
@@ -33,7 +35,7 @@ class FilmDaoTest {
         }
         filmDao = database.filmDao()
 
-        film1 = Film()
+        film1 = Film(null, "Shape Of Water", 850)
         filmDao.insertFilm(film1)
     }
 
@@ -41,6 +43,14 @@ class FilmDaoTest {
     fun testFindAll() {
         val numberOfFilms = filmDao.findAllFilms().size
         Assert.assertEquals(1, numberOfFilms)
+    }
+
+    @Test
+    fun testFindById() {
+        val savedFilm = filmDao.findFilmById(1)
+        Assert.assertEquals("Shape Of Water", savedFilm.title)
+        Assert.assertEquals(850, savedFilm.price)
+        Assert.assertNotNull(savedFilm.id)
     }
 
     @After
