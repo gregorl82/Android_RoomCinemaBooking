@@ -6,6 +6,9 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.example.android.roomcinemabooking.db.CinemaBookingDatabase
+import com.example.android.roomcinemabooking.db.CustomerDao
+import com.example.android.roomcinemabooking.model.Customer
 import org.junit.*
 import org.junit.rules.TestRule
 import org.junit.runner.RunWith
@@ -32,13 +35,13 @@ class CustomerDaoTest {
         }
         customerDao = database.customerDao()
 
-        customer1 = Customer()
+        customer1 = Customer(null, "John Smith", 1000)
         customerDao.insertCustomer(customer1)
     }
 
     @Test
     fun testFindAll() {
-        val numberOfCustomers = customerDao.findAll().size
+        val numberOfCustomers = customerDao.findAllCustomers().size
         Assert.assertEquals(1, numberOfCustomers)
     }
 
