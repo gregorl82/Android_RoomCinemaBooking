@@ -54,6 +54,19 @@ class FilmDaoTest {
     }
 
     @Test
+    fun testInsertFilm() {
+        val previousNumberOfFilms = filmDao.findAllFilms().size
+
+        val newFilm = Film(null, "Jurassic World 3D", 1050)
+        filmDao.insertFilm(newFilm)
+
+        val numberOfFilms = filmDao.findAllFilms().size
+        val numberOfNewFilms = numberOfFilms - previousNumberOfFilms
+
+        Assert.assertEquals(1, numberOfNewFilms)
+    }
+
+    @Test
     fun testUpdateFilm() {
         val savedFilm = filmDao.findFilmById(1)
 
@@ -63,6 +76,22 @@ class FilmDaoTest {
         val updatedFilm = filmDao.findFilmById(1)
         Assert.assertEquals("Shape Of Water", updatedFilm.title)
         Assert.assertEquals(750, updatedFilm.price)
+    }
+
+    @Test
+    fun testDeleteFilm() {
+        val previousNumberOfFilms = filmDao.findAllFilms().size
+
+        val savedFilm = filmDao.findFilmById(1)
+        filmDao.deleteFilm(savedFilm)
+
+        val numberOfFilms = filmDao.findAllFilms().size
+        val numberOfDeletedFilms = previousNumberOfFilms - numberOfFilms
+
+        val deletedFilmRef = filmDao.findFilmById(1)
+
+        Assert.assertEquals(1, numberOfDeletedFilms)
+        Assert.assertNull(deletedFilmRef)
     }
 
     @After
