@@ -8,6 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.android.roomcinemabooking.db.CinemaBookingDatabase
 import com.example.android.roomcinemabooking.db.FilmDao
+import com.example.android.roomcinemabooking.db.ScreeningDao
 import com.example.android.roomcinemabooking.model.Film
 import com.example.android.roomcinemabooking.model.Screening
 import org.junit.*
