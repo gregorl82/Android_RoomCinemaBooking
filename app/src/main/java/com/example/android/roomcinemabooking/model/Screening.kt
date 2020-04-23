@@ -6,14 +6,21 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "screenings")
-data class Screening (
+@Entity(
+    tableName = "screenings",
+    foreignKeys = [ForeignKey(
+        entity = Film::class,
+        parentColumns = ["id"],
+        childColumns = ["film_id"],
+        onDelete = CASCADE
+    )]
+)
+data class Screening(
     @PrimaryKey(autoGenerate = true)
     var id: Long? = 0,
     @ColumnInfo(name = "screening_time")
     var screeningTime: String,
     var capacity: Int,
     @ColumnInfo(name = "film_id")
-    @ForeignKey(entity = Film::class, parentColumns = ["id"], childColumns = ["film_id"], onDelete = CASCADE)
     var filmId: Long?
 )

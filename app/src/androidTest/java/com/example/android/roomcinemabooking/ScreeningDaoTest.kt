@@ -111,4 +111,12 @@ class ScreeningDaoTest {
         Assert.assertEquals(1, numberOfScreeningsDeleted)
         Assert.assertNull(deletedScreeningRef)
     }
+
+    @Test
+    fun testCascadeDelete() {
+        filmDao.deleteFilm(savedFilm)
+        val savedScreening = screeningDao.findScreeningById(1)
+
+        Assert.assertNull(savedScreening)
+    }
 }
