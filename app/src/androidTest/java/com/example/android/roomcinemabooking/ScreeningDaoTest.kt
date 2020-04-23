@@ -83,6 +83,20 @@ class ScreeningDaoTest {
     }
 
     @Test
+    fun testUpdateScreening() {
+        val savedScreening = screeningDao.findScreeningById(1)
+
+        savedScreening.capacity = 20
+        screeningDao.updateScreening(savedScreening)
+
+        val updatedScreening = screeningDao.findScreeningById(1)
+
+        Assert.assertEquals("15:45", updatedScreening.screeningTime)
+        Assert.assertEquals(20, updatedScreening.capacity)
+        Assert.assertEquals(1L, updatedScreening.filmId)
+    }
+
+    @Test
     fun testDeleteScreening() {
         val previousNumberOfScreenings = screeningDao.findAllScreenings().size
 

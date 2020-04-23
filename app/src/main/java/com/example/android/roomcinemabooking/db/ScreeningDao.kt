@@ -1,10 +1,8 @@
 package com.example.android.roomcinemabooking.db
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
+import androidx.room.*
 import androidx.room.OnConflictStrategy.IGNORE
-import androidx.room.Query
+import androidx.room.OnConflictStrategy.REPLACE
 import com.example.android.roomcinemabooking.model.Screening
 
 @Dao
@@ -18,6 +16,9 @@ interface ScreeningDao {
 
     @Insert(onConflict = IGNORE)
     fun insertScreening(screening: Screening): Long
+
+    @Update(onConflict = REPLACE)
+    fun updateScreening(screening: Screening)
 
     @Delete
     fun deleteScreening(screening: Screening)
